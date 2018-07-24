@@ -22,7 +22,6 @@
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap.min.css">
-
 <!-- MODAL  -->
 
 <script
@@ -30,7 +29,7 @@
 <title>Gestión de reservas</title>
 </head>
 <body>
-<h1>Gestión de reservas PB Bed And Breakfast</h1>
+	<h1>Gestión de reservas PB Bed And Breakfast</h1>
 	<table id="example" class="table table-striped table-bordered"
 		style="width: 100%">
 		<thead>
@@ -43,12 +42,9 @@
 				<th>Total habitaciones</th>
 				<th>Total noches</th>
 				<th>Precio por noche</th>
-				<th>Ganancia total</th>
+				<th>Depósito</th>
 				<th>Check in</th>
 				<th>Check Out</th>
-
-
-
 
 			</tr>
 		</thead>
@@ -57,26 +53,28 @@
 				ClientDao clientDao = new ClientDao();
 				Management mg = new Management();
 				List<Client> listClient = clientDao.clientList();
-				
-				for(Client client: listClient){
-					%>
-					<tr>
-					<td><%=client.getId()%></td>
-					<td><%=client.getName()%></td>
-					<td><%=client.getSurname()%></td>
-					<td><%=client.getNationality()%></td>
-					<td><%=client.getTelephone()%></td>
-					<td><%= mg.getNumberOfRooms() %></td>
-					<td><%= mg.getTotalNights() %>
-					<td><%=mg.getPricePerNight()%></td>
-					<td>Ganancia total</td>
-					<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
-					<td>reservationDate</td>
-					<td>reservationEnd</td>
-				</tr>
-				
-				<%} %>
-					
+
+				for (Client client : listClient) {
+			%>
+			<tr>
+				<td><%=client.getId()%></td>
+				<td><%=client.getName()%></td>
+				<td><%=client.getSurname()%></td>
+				<td><%=client.getNationality()%></td>
+				<td><%=client.getTelephone()%></td>
+				<td><%=mg.getTotalRooms()%></td>
+				<td><%=mg.getTotalNights()%></td>
+				<td><%=mg.getPricePerNight()%></td>
+				<td><%=mg.getDeposit()%></td>
+				<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
+				<td>m<%=mg.getCheckIn()%></td>
+				<td><%=mg.getCheckOut()%></td>
+			</tr>
+
+			<%
+				}
+			%>
+
 		</tbody>
 		<tfoot>
 			<tr>
@@ -88,7 +86,7 @@
 				<th>Total habitaciones</th>
 				<th>Total noches</th>
 				<th>Precio por noche</th>
-				<th>Ganancia total</th>
+				<th>Depósito</th>
 				<th>Check in</th>
 				<th>Check Out</th>
 
@@ -98,7 +96,8 @@
 	<!-- Trigger the modal with a button -->
 	<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
 		data-target="#myModal">Añadir cliente</button>
-	<form action="Controlador" name="formInsertar" method="post">
+	<form action="Controlador" name="formInsertar" method="post"
+		onsubmit="return validate();">
 		<!-- Modal -->
 		<div class="modal fade" id="myModal" role="dialog">
 			<div class="modal-dialog modal-lg">
@@ -113,43 +112,51 @@
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="name">Nombre:
 								</label> <i class="fa fa-user prefix grey-text"></i> <input type="text"
-									name="name" class="form-control validate">
+									id="name" name="name" class="form-control validate">
 							</div>
 
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="surname">Apellidos:</label>
 								<i class="fa fa-envelope prefix grey-text"></i> <input
-									type="text" name="surname" class="form-control validate">
+									type="text" id="surname" name="surname"
+									class="form-control validate">
 							</div>
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="nationality">Nacionalidad:</label>
 								<i class="fa fa-envelope prefix grey-text"></i> <input
-									type="text" name="nationality" class="form-control validate">
+									type="text" id="nationality" name="nationality"
+									class="form-control validate">
 							</div>
 
 							<div class="md-form">
 								<label data-error="wrong" data-success="right" for="tel">Teléfono:</label>
-								<i class="fa fa-pencil prefix grey-text"></i> <input type="text"
-									name="telephone" class="md-textarea form-control"></input>
+								<i class="fa fa-pencil prefix grey-text"></i> <input type="tel"
+									id="telephone" pattern="[0-9]{9}" name="telephone"
+									class="md-textarea form-control"></input>
 							</div>
-							<!-- <div class="md-form mb-5">
+							<div class="md-form mb-5">
+								<label data-error="wrong" data-success="right"
+									for="totalHabitaciones">Total habitaciones:</label> <i
+									class="fa fa-envelope prefix grey-text"></i> <input type="text"
+									id="totalRooms" name="totalRooms" class="form-control validate">
+							</div>
+							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="checkIn">Check
 									in:</label> <i class="fa fa-tag prefix grey-text"></i> <input
-									type="text" name="checkIn" id="checkIn"
+									type="date" name="checkIn" id="checkIn"
 									class="form-control validate">
 							</div>
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="checkOut">Check
 									out:</label> <i class="fa fa-tag prefix grey-text"></i> <input
-									type="text" name="checkOut" id="checkOut"
+									type="date" name="checkOut" id="checkOut"
 									class="form-control validate">
-							</div> -->
+							</div>
 							<div class="md-form mb-5">
-								<label data-error="wrong" data-success="right" for="checkOut">Adelanto</label>
+								<label data-error="wrong" data-success="right" for="deposit">Adelanto</label>
 								<i class="fa fa-tag prefix grey-text"></i> <input type="text"
 									name="deposit" id="deposit" class="form-control validate">
 							</div>
-
 
 						</div>
 
@@ -171,6 +178,10 @@
 		$(document).ready(function() {
 			$('#example').DataTable();
 		});
+	</script>
+	<!-- VALIDACION FORMULARIO  -->
+	<script src ="js\validate.js">
+		
 	</script>
 </body>
 </html>

@@ -5,6 +5,9 @@ import com.reservationbb.pob.model.Management;
 public class ManagementDao {
 
 	Management mng = new Management();
+	
+	// Debo crear un método que me devuelva una lista de Managemen para poder mostrarla en el index.jsp. Haré como
+	// hice con la clase client
 
 /*	public int ganaciaPorClient() {
 		int numPersons = mng.getNumberOfPersons();

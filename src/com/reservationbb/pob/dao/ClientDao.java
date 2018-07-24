@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JOptionPane;
+
 import com.reservationbb.pob.service.Connect;
 import com.reservationbb.pob.model.Client;
 
@@ -72,6 +74,6 @@ public class ClientDao {
 	  Connect.close(conection);
 	  return list; 
 	  }
-	 
+	
 
 }
