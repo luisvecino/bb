@@ -34,7 +34,6 @@
 		style="width: 100%">
 		<thead>
 			<tr>
-				<th>ID</th>
 				<th>Nombre</th>
 				<th>Apellidos</th>
 				<th>Nacionalidad</th>
@@ -51,24 +50,22 @@
 		<tbody>
 			<%
 				ClientDao clientDao = new ClientDao();
-				Management mg = new Management();
 				List<Client> listClient = clientDao.clientList();
 
 				for (Client client : listClient) {
 			%>
 			<tr>
-				<td><%=client.getId()%></td>
 				<td><%=client.getName()%></td>
 				<td><%=client.getSurname()%></td>
 				<td><%=client.getNationality()%></td>
-				<td><%=client.getTelephone()%></td>
-				<td><%=mg.getTotalRooms()%></td>
-				<td><%=mg.getTotalNights()%></td>
-				<td><%=mg.getPricePerNight()%></td>
-				<td><%=mg.getDeposit()%></td>
+				<td><a href="tel:+34<%=client.getTelephone()%>"><%=client.getTelephone()%></a></td>
+				<td><%=client.getTotalRooms()%></td>
+				<td><%=client.getTotalNights()%></td>
+				<td><%= client.getPricePerNight()%></td>
+				<td><%=client.getDeposit()%></td>
 				<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
-				<td>m<%=mg.getCheckIn()%></td>
-				<td><%=mg.getCheckOut()%></td>
+				<td><%=client.getCheckIn()%></td>
+				<td><%=client.getCheckOut()%></td>
 			</tr>
 
 			<%
@@ -78,14 +75,13 @@
 		</tbody>
 		<tfoot>
 			<tr>
-				<th>ID</th>
 				<th>Nombre</th>
 				<th>Apellidos</th>
 				<th>Nacionalidad</th>
-				<th>Teléfono</th>
-				<th>Total habitaciones</th>
+				<th>Tel</th>
+				<th>Total hab</th>
 				<th>Total noches</th>
-				<th>Precio por noche</th>
+				<th>Precio/p/n</th>
 				<th>Depósito</th>
 				<th>Check in</th>
 				<th>Check Out</th>
@@ -136,10 +132,17 @@
 							</div>
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right"
-									for="totalHabitaciones">Total habitaciones:</label> <i
+									for="totalHabitaciones">nº hab:</label> <i
 									class="fa fa-envelope prefix grey-text"></i> <input type="text"
 									id="totalRooms" name="totalRooms" class="form-control validate">
 							</div>
+							<div class="md-form mb-5">
+								<label data-error="wrong" data-success="right"
+									for="totalHabitaciones">totalNights:</label> <i
+									class="fa fa-envelope prefix grey-text"></i> <input type="text"
+									id="totalRooms" name="totalNights" class="form-control validate">
+							</div>
+							totalNights
 							<div class="md-form mb-5">
 								<label data-error="wrong" data-success="right" for="checkIn">Check
 									in:</label> <i class="fa fa-tag prefix grey-text"></i> <input
@@ -180,7 +183,7 @@
 		});
 	</script>
 	<!-- VALIDACION FORMULARIO  -->
-	<script src ="js\validate.js">
+	<script src="js\validate.js">
 		
 	</script>
 </body>

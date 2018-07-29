@@ -2,9 +2,12 @@ package com.reservationbb.pob.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -17,7 +20,6 @@ import javax.swing.JOptionPane;
 
 import com.reservationbb.pob.dao.ClientDao;
 import com.reservationbb.pob.model.Client;
-import com.reservationbb.pob.model.Management;
 
 /**
  * Servlet implementation class Controlador
@@ -42,30 +44,37 @@ public class Controlador extends HttpServlet {
 		doGet(request, response);
 		ClientDao clientDao = new ClientDao();
 		List<Client> lista = new ArrayList<>();
-		// Client cliente = new Client();
 
 		// Recojo los datos del formulario para Client
 		String nombre = request.getParameter("name");
-		String apellido = request.getParameter("surname");
+		String apellidos = request.getParameter("surname");
 		String nacionalidad = request.getParameter("nationality");
 		int telefono = Integer.parseInt(request.getParameter("telephone"));
-		int id = (int) (Math.random() * 1000) + 500;
+
+		 String checkInString = request.getParameter("checkIn");
+		 String checkOutString = request.getParameter("checkOut");
+
+		// Takes the date from the form in String and converts it java.util.date which
+		// is how the buisness object is written
+		   LocalDate checkIn = LocalDate.parse(checkInString);
+		   LocalDate checkOut = LocalDate.parse(checkOutString);
+
+		// LocalDate checkIn = LocalDate.parse(checkInString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+		// LocalDate checkOut = LocalDate.parse(checkOutString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+
+
+		// Date checkIn = null; // HAY Q PASAR DE STRING A DATE
+		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		int deposit = Integer.parseInt(request.getParameter("deposit"));
+		String totalNightsString = request.getParameter("totalNights");
+		int totalNights = Integer.parseInt(totalNightsString);
+		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
 
 		// Creo un cliente con los datos del formulario
-		Client client = new Client(id, nombre, apellido, nacionalidad, telefono);
-
-		// Recojo los datos del formulario para Management
-		String checkInString = request.getParameter("checkIn");
-		String checkOutString = request.getParameter("checkOut");
-
-		LocalDate checkIn = LocalDate.parse(checkInString);
-		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		LocalDate checkOut = LocalDate.parse(checkOutString);
-		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
-		double deposit = Double.parseDouble(request.getParameter("deposit"));
-
-		new Management(checkIn, checkOut, totalRooms, deposit);
+		Client client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
+				totalRooms);
 
 		try {
 			clientDao.insert(client);
@@ -74,7 +83,7 @@ public class Controlador extends HttpServlet {
 		}
 
 		// Añado el nuevo objeto cliente a la lista
-		// lista.add(client);
+		lista.add(client);
 		// Dejo la lista en el request NO HACE FALTA QUE DEJE NADA EN REQUEST
 		// request.setAttribute("lista", lista);
 
