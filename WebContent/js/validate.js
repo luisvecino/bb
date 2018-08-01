@@ -8,7 +8,7 @@ function validate() {
 	deposit = document.getElementById("deposit").value;
 	checkIn = document.getElementById("checkIn").value;
 	checkOut = document.getElementById("checkOut").value;
-	
+
 	if(name === "" || surname === "" || telephone === "" || totalRooms === "" || nationality === "" || deposit === "" || checkIn === "" || checkOut === ""){
 		alert("Todos los campos son obligatorios");
 		return false;

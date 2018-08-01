@@ -34,10 +34,9 @@ public class ClientDao {
 	}
 
 // GET ID
-/*	public List<Integer> id() throws SQLException {
-		int id = 0;
-		 List<Integer> list = new ArrayList<>();
-		sql = "Select ID FROM client;";
+	public int getId() throws SQLException {
+		int id = client.getId();
+		sql = "Select ID FROM client";
 		try {
 			conection = Connect.getConnection();
 			st = conection.createStatement();
@@ -53,9 +52,9 @@ public class ClientDao {
 		}			
 	
 		
-		return list;
+		return id;
 		
-	}*/
+	}
 	
 	// iNSERTAR CLIENTES
 
