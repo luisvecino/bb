@@ -18,7 +18,7 @@ import com.reservationbb.pob.model.Client;
 public class ClientDao {
 	public Connect con;
 	String sql = null;
-	private Connection conection = null;
+	protected Connection conection = null;
 	Statement st = null;
 	ResultSet rs = null;
 	PreparedStatement ps = null;
@@ -84,8 +84,10 @@ public class ClientDao {
 		+ "(USER_ID, USERNAME, CREATED_BY, CREATED_DATE) VALUES"
 		+ "(?,?,?,?)";*/
 		boolean insertar = ps.executeUpdate() > 0;
-
-		return insertar;
+		
+	
+		  return insertar;
+	
 	}
 
 	

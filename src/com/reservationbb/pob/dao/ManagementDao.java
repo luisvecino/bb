@@ -1,33 +1,29 @@
 package com.reservationbb.pob.dao;
 
-import java.time.Duration;
-import java.time.LocalDate;
+import java.sql.Connection;
+import java.sql.SQLException;
 
-public class ManagementDao {
-	 
-	/***
-	 * 
-	 * 
-	 * 
-	 * 
-	 * Duration duration = duration.minusDays(daysToSubtract);
-	 * long daysToSubtract = duration.toDays();
+import com.reservationbb.pob.dao.*;
+import com.reservationbb.pob.service.Connect;
 
-	public LocalDate fechaDespues() {
-		LocalDate minCheckIn = LocalDate.now();
+public class ManagementDao extends ClientDao {
+	
+	public boolean delete() throws SQLException {
+		Connection conn = Connect.getConnection();
+		boolean borrar = false;
+		
+		super.sql = "TRUNCATE TABLE client;";
+		super.st = conn.createStatement();
+		st.executeUpdate(sql);
+		
+		st.close();
+		Connect.close(conection);
+		
+		borrar = true;
+		return borrar;
+		  
+		
 
-	    LocalDate minCheckOut = minCheckIn.minusDays(daysToSubtract);
-
-		 duration = Duration.between(minCheckIn, minCheckOut);
-
-
-
-
-	    
-		return minCheckOut;
-
-	 
 	}
-	 */
     
 }

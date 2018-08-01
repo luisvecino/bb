@@ -42,7 +42,7 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Gestión de reservas PB Bed And Breakfast</h1>
+		<h1 class ="aligncenter">Gestión de reservas PB Bed And Breakfast</h1>
 		<table id="example" class="table table-striped table-bordered table-hover table-sm table-dark">
 			<thead> 
 			<tr>
@@ -108,6 +108,8 @@
 		<!-- Trigger the modal with a button -->
 		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
 			data-target="#myModal">Añadir cliente</button>
+		<form action="Controlador" method="get"><button type="submit" class="btn btn-info btn-lg" name ="btnDelete">
+		Eliminar registros DB y tabla</button></form>			
 		<form action="Controlador" name="formInsertar" method="post"
 			onsubmit="return validate();">
 			<!-- Modal -->
