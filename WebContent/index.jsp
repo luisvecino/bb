@@ -68,7 +68,7 @@
 					for (Client client : listClient) {
 				%>
 				<tr>
-					<td><%=clientDao.getId() %></td>
+					<td><%=client.getId() %></td>
 					<td><%=client.getName()%></td>
 					<td><%=client.getSurname()%></td>
 					<td><%=client.getNationality()%></td>

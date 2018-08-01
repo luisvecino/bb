@@ -34,8 +34,8 @@ public class ClientDao {
 	}
 
 // GET ID
-	public int getId() throws SQLException {
-		int id = client.getId();
+/*	public int getId() throws SQLException {
+		 //int id = client.getId();
 		sql = "Select ID FROM client";
 		try {
 			conection = Connect.getConnection();
@@ -55,7 +55,7 @@ public class ClientDao {
 		return id;
 		
 	}
-	
+	*/
 	// iNSERTAR CLIENTES
 
 	public boolean insert(Client client) throws SQLException {
@@ -99,7 +99,7 @@ public class ClientDao {
 	  st = conection.createStatement();
 	  rs = st.executeQuery(sql);
 	  while (rs.next()) {
-		  // int id = rs.getInt("ID");
+		  int id = rs.getInt("ID");
 		  String name = rs.getString("Nombre");
 		  String surname = rs.getString("Apellidos");
 		  String nacionalidad = rs.getString("Nacionalidad");
@@ -111,7 +111,7 @@ public class ClientDao {
 		  int totalRooms = rs.getInt(10);
 
 		
-	  Client client = new Client(name,surname,nacionalidad,tel,totalNights,checkIn,checkOut,deposit,totalRooms);
+	  Client client = new Client(id,name,surname,nacionalidad,tel,totalNights,checkIn,checkOut,deposit,totalRooms);
 	  list.add(client);
 	  
 	  } 

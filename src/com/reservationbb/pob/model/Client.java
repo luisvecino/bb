@@ -33,7 +33,7 @@ public class Client {
 	// Date reservationEnd;
 	private LocalDate checkOut;
 
-	public Client(String name, String surname, String nationality, int telephone, int totalNights,
+	public Client( String name, String surname, String nationality, int telephone, int totalNights,
 			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms) {
 
 		this.name = name;
@@ -47,10 +47,26 @@ public class Client {
 		this.totalRooms = totalRooms;
 
 	}
-	// Constructor de cliente
 
 	// Constructor de cliente vacío
 	public Client() {
+	}
+	
+	// Constructor con el campo id
+
+	public Client(int id, String name, String surname, String nationality, int telephone, int totalNights,
+			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms) {
+		this.id = id;
+		this.name = name;
+		this.surname = surname;
+		this.nationality = nationality;
+		this.telephone = telephone;
+		this.totalNights = totalNights;
+		this.checkIn = checkIn;
+		this.checkOut = checkOut;
+		this.deposit = deposit;
+		this.totalRooms = totalRooms;
+		
 	}
 
 	// SETTERS Y GETTERS

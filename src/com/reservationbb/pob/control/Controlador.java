@@ -43,8 +43,9 @@ public class Controlador extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		ClientDao clientDao = new ClientDao();
+		Client client = new Client();
 		List<Client> lista = new ArrayList<>();
-
+		//int id = client.getId();
 		// Recojo los datos del formulario para Client
 		String nombre = request.getParameter("name");
 		String apellidos = request.getParameter("surname");
@@ -59,13 +60,6 @@ public class Controlador extends HttpServlet {
 		   LocalDate checkIn = LocalDate.parse(checkInString);
 		   LocalDate checkOut = LocalDate.parse(checkOutString);
 
-		// LocalDate checkIn = LocalDate.parse(checkInString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-		// LocalDate checkOut = LocalDate.parse(checkOutString, DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-
-
-		// Date checkIn = null; // HAY Q PASAR DE STRING A DATE
-		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		// DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		String totalNightsString = request.getParameter("totalNights");
@@ -73,7 +67,7 @@ public class Controlador extends HttpServlet {
 		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
 
 		// Creo un cliente con los datos del formulario
-		Client client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
+		 client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
 				totalRooms);
 
 		try {
