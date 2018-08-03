@@ -16,6 +16,8 @@ import com.reservationbb.pob.model.Client;
 @WebServlet("/Controlador2")
 public class Controlador2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	ManagementDao md2 = new ManagementDao();
+
 
 	public Controlador2() {
 		super();
@@ -28,7 +30,6 @@ public class Controlador2 extends HttpServlet {
 
 		// Recojo info del botón para eliminar los registros de la base de datos
 
-		ManagementDao md2 = new ManagementDao();
 		
 			try {
 				md2.delete();
@@ -49,16 +50,24 @@ public class Controlador2 extends HttpServlet {
 			throws ServletException, IOException {
 		doGet(request, response);
 		
-		String setPriceStringBtn = request.getParameter("setPriceBtn");
-		String inputPriceString = request.getParameter("inputPrice");
-		Client cli = new Client();
-		if (setPriceStringBtn != null) {
-			int newPriceInt = Integer.parseInt(inputPriceString);
-			
-			
-			cli.setPricePerNight(newPriceInt);
-			System.out.println("Prueba ... jsuto después del SET PRICE");
-			 request.setAttribute("newPrice", newPriceInt);
+	/*	String creardb = request.getParameter("createdbBtn");
+		if(creardb != null) {
+			try {
+				md2.createDatabase();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			try {
+				md2.createTable();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}*/
+		
+	
 			 
 				// PASO EL FLUJO A LA JSP
 		/**
@@ -72,4 +81,4 @@ public class Controlador2 extends HttpServlet {
 
 	}
 
-}
+

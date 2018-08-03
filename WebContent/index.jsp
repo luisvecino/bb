@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="com.reservationbb.pob.dao.ClientDao"%>
 <%@ page import="com.reservationbb.pob.dao.ManagementDao"%>
@@ -55,10 +54,7 @@
 			<tbody>
 				<%
 					ClientDao clientDao = new ClientDao();
-					ManagementDao md = new ManagementDao();
 					List<Client> listClient = clientDao.clientList();
-					Client client2 = new Client();
-
 					for (Client client : listClient) {
 				%>
 				<tr>
@@ -69,7 +65,7 @@
 					<td><a href="tel:+34<%=client.getTelephone()%>"><%=client.getTelephone()%></a></td>
 					<td><%=client.getTotalRooms()%></td>
 					<td><%=client.getTotalNights()%></td>
-					<td><%=client2.getPricePerNight()%></td>
+					<td><%=client.getPricePerNight()%></td>
 					<td><%=client.getDeposit()%></td>
 					<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
 					<td><%=client.getCheckIn()%></td>
@@ -111,29 +107,24 @@
 				var eliminarRegistros = document
 						.getElementById("eliminarRegistrosTabla");
 				if (eliminarRegistros != null) {
-					
-					confirm = window.confirm("¿Está seguro de querer eliminar todos los registros de la tabla ?");
-					if (confirm) { 
-						alert("TABLA BORRADA");
-						}else {
 
-							alert("No se ha borrado nada");
-							return false;
-						}
-					
+					confirm = window
+							.confirm("¿Está seguro de querer eliminar todos los registros de la tabla ?");
+					if (confirm) {
+
+						alert("Borrando....");
+
+					} else {
+
+						alert("No se ha borrado nada");
+						return false;
+					}
+
 				}
 
 			}
 		</script>
-		<form action="Controlador2" method="post">
-			<p>El precio de serie es 65€;</p>
-			<input name="inputPrice" placeholder="Nuevo precio">
-			<!-- Modificar precio:<input name="setPrice" class="fa fa-envelope prefix grey-text"> -->
-			<input type="submit" id="setPrice" name="setPriceBtn"
-				value="Cambiar precio" class="btn btn-info btn-lg">
-
-		</form>
-
+		
 
 		<script>
 			$(document).ready(function() {

@@ -13,17 +13,17 @@
 <script src="js/date.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<meta http-equiv="Content-Type" content="text/html;  charset=UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
 	<div class="container jumbotron">
-		<h1>Inserción de un nuevo cliente</h1>
-		<p>Pulsando el botón podrá acceder al formulario para poder añadir
+		<h1>InserciÃ³n de un nuevo cliente</h1>
+		<p>Pulsando el botÃ³n podrÃ¡ acceder al formulario para poder aÃ±adir
 			un nuevo registro</p>
 		<!-- Trigger the modal with a button -->
 		<button type="button" class="btn btn-info btn-lg" data-toggle="modal"
-			data-target="#myModal">Añadir cliente</button>
+			data-target="#myModal">AÃ±adir cliente</button>
 		<form action="Controlador" name="formInsertar" method="post"
 			onsubmit="return validate();">
 			<!-- Modal -->
@@ -58,14 +58,14 @@
 								</div>
 
 								<div class="md-form">
-									<label data-error="wrong" data-success="right" for="tel">Teléfono:</label>
+									<label data-error="wrong" data-success="right" for="tel">TelÃ©fono:</label>
 									<i class="fa fa-pencil prefix grey-text"></i> <input type="tel"
 										id="telephone" pattern="[0-9]{9}" name="telephone"
 										class="md-textarea form-control"></input>
 								</div>
 								<div class="md-form mb-5">
 									<label data-error="wrong" data-success="right"
-										for="totalHabitaciones">nº hab:</label> <i
+										for="totalHabitaciones">nÂº hab:</label> <i
 										class="fa fa-envelope prefix grey-text"></i> <input
 										type="text" id="totalRooms" name="totalRooms"
 										class="form-control validate">
@@ -107,9 +107,13 @@
 						</div>
 						<div class="modal-footer">
 							<div class="d-flex justify-content-center">
+								<p>El precio de serie es 65â‚¬;</p>
+								<input type ="text" name="inputPrice" placeholder="Nuevo precio" value ="65">
 								<button type="submit" class="btn btn-primary">
 									Enviar <i class="fa fa-paper-plane-o ml-1"></i>
 								</button>
+
+
 							</div>
 							<button type="button" class="btn btn-primary"
 								data-dismiss="modal">Cerrar</button>
@@ -123,8 +127,8 @@
 
 		<!-- VALIDACION FORMULARIO  -->
 		<script src="js\validate.js"></script>
-		
-		</div>
+
+	</div>
 </body>
 
 

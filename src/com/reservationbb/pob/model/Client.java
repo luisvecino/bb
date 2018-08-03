@@ -21,7 +21,7 @@ public class Client {
 	private int totalRooms;
 
 	private int totalNights;// Tiene que ser = a la diferencia entre el check in y el check out
-	public int pricePerNight = 65; // Debo crear un Botón en el index.jsp para poder modificar el precio cuando
+	public int pricePerNight; // Debo crear un Botón en el index.jsp para poder modificar el precio cuando
 									// queramos
 
 	private double amountPending;
@@ -33,7 +33,7 @@ public class Client {
 	private LocalDate checkOut;
 
 	public Client(String name, String surname, String nationality, int telephone, int totalNights, LocalDate checkIn,
-					LocalDate checkOut, int deposit, int totalRooms) {
+					LocalDate checkOut, int deposit, int totalRooms,int pricePerNight) {
 		this.name = name;
 		this.surname = surname;
 		this.nationality = nationality;
@@ -43,6 +43,7 @@ public class Client {
 		this.checkOut = checkOut;
 		this.deposit = deposit;
 		this.totalRooms = totalRooms;
+		this.pricePerNight = pricePerNight;
 	}
 	
 

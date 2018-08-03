@@ -2,12 +2,9 @@ package com.reservationbb.pob.control;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -16,10 +13,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.JOptionPane;
 
 import com.reservationbb.pob.dao.ClientDao;
-import com.reservationbb.pob.dao.ManagementDao;
 import com.reservationbb.pob.model.Client;
 
 /**
@@ -36,13 +31,11 @@ public class Controlador extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-	
 
-	/*	// PASO EL FLUJO A LA JSP
-		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
-		rd.forward(request, response);*/
-
-
+		/*
+		 * // PASO EL FLUJO A LA JSP RequestDispatcher rd =
+		 * request.getRequestDispatcher("index.jsp"); rd.forward(request, response);
+		 */
 
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -63,21 +56,30 @@ public class Controlador extends HttpServlet {
 		int telefono = Integer.parseInt(request.getParameter("telephone"));
 		String checkInString = request.getParameter("checkIn");
 		String checkOutString = request.getParameter("checkOut");
-		
+
 		// Takes the date from the form in String and converts it java.util.date which
 		// is how the buisness object is written
-		
+
 		LocalDate checkIn = LocalDate.parse(checkInString);
 		LocalDate checkOut = LocalDate.parse(checkOutString);
 		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		String totalNightsString = request.getParameter("totalNights");
 		int totalNights = Integer.parseInt(totalNightsString);
 		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
+		
+		String priceString = request.getParameter("inputPrice");
+		int newPriceInt = Integer.parseInt(priceString);
+		
+		if(( priceString != null)&&(newPriceInt > 0)) {
+			client.setPricePerNight(newPriceInt);
+		}
+		
+		System.out.println("Prueba ... jsuto después del SET PRICE");
 
-		int pricePerNight = client.getPricePerNight();
+		// request.setAttribute("newPrice", newPriceInt);
 		// Creo un cliente con los datos del formulario
 		client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
-				totalRooms);
+				totalRooms, newPriceInt);
 
 		try {
 			clientDao.insert(client);
@@ -89,7 +91,7 @@ public class Controlador extends HttpServlet {
 		lista.add(client);
 		// Dejo la lista en el request NO HACE FALTA QUE DEJE NADA EN REQUEST
 		// request.setAttribute("lista", lista);
-	
+
 		// PASO EL FLUJO A LA JSP
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);
