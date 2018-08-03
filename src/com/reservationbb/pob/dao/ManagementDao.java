@@ -3,7 +3,6 @@ package com.reservationbb.pob.dao;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.reservationbb.pob.dao.*;
 import com.reservationbb.pob.service.Connect;
 
 public class ManagementDao extends ClientDao {
@@ -12,8 +11,8 @@ public class ManagementDao extends ClientDao {
 		Connection conn = Connect.getConnection();
 		boolean borrar = false;
 		
-		super.sql = "TRUNCATE TABLE client;";
-		super.st = conn.createStatement();
+		sql = "TRUNCATE TABLE client;";
+		st = conn.createStatement();
 		st.executeUpdate(sql);
 		
 		st.close();
@@ -26,4 +25,12 @@ public class ManagementDao extends ClientDao {
 
 	}
     
+	/*public int editPricePerNight(int newPrice){
+		
+						
+		super.client.setPricePerNight(newPrice);
+		
+		return newPrice; 
+			
+	}*/
 }

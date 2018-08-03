@@ -1,29 +1,28 @@
 package com.reservationbb.pob.model;
 
 import java.util.Date;
+
+import com.reservationbb.pob.dao.ClientDao;
+import com.reservationbb.pob.dao.ManagementDao;
+
 import java.time.LocalDate;
 
 public class Client {
-
+	
 	// ATRIBUTOS
 	private int id;
 	private String name;
 	private String surname;
 	private String nationality;
 	private int telephone;
-    
 
-    	
-	
 	// Estos atributos son los que estaban en la clase management
 	private static final int MAX_PER_ROOM = 2;
 	private int totalRooms;
 
 	private int totalNights;// Tiene que ser = a la diferencia entre el check in y el check out
-	private int pricePerNight = 61; // Debo crear un Botón en el index.jsp para poder modificar el precio cuando
-											// queramos
-
-	
+	public int pricePerNight = 65; // Debo crear un Botón en el index.jsp para poder modificar el precio cuando
+									// queramos
 
 	private double amountPending;
 	private double total = (pricePerNight * totalNights) - amountPending;
@@ -33,9 +32,8 @@ public class Client {
 	// Date reservationEnd;
 	private LocalDate checkOut;
 
-	public Client( String name, String surname, String nationality, int telephone, int totalNights,
-			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms) {
-
+	public Client(String name, String surname, String nationality, int telephone, int totalNights, LocalDate checkIn,
+					LocalDate checkOut, int deposit, int totalRooms) {
 		this.name = name;
 		this.surname = surname;
 		this.nationality = nationality;
@@ -45,17 +43,12 @@ public class Client {
 		this.checkOut = checkOut;
 		this.deposit = deposit;
 		this.totalRooms = totalRooms;
-
-	}
-
-	// Constructor de cliente vacío
-	public Client() {
 	}
 	
-	// Constructor con el campo id
 
+	// Constructor con el campo id
 	public Client(int id, String name, String surname, String nationality, int telephone, int totalNights,
-			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms) {
+			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms, int pricePerNight) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -66,8 +59,13 @@ public class Client {
 		this.checkOut = checkOut;
 		this.deposit = deposit;
 		this.totalRooms = totalRooms;
-		
+		this.pricePerNight = pricePerNight;
 	}
+
+	public Client() {
+		// TODO Auto-generated constructor stub
+	}
+
 
 	// SETTERS Y GETTERS
 	public int getId() {
@@ -141,6 +139,7 @@ public class Client {
 	public void setCheckIn(LocalDate checkIn) {
 		this.checkIn = checkIn;
 	}
+
 	public LocalDate getCheckOut() {
 		return checkOut;
 	}
@@ -152,9 +151,19 @@ public class Client {
 	public int getPricePerNight() {
 		return pricePerNight;
 	}
-
-	public void setPricePerNight(int pricePerNight) {
+	
+	public void  setPricePerNight(int pricePerNight) {
 		this.pricePerNight = pricePerNight;
 	}
+
+	public void setAmountPending(double amountPending) {
+		this.amountPending = amountPending;
+	}
+
+	public void setTotal(double total) {
+		this.total = total;
+	}
+
+
 
 }

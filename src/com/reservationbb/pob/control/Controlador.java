@@ -38,22 +38,11 @@ public class Controlador extends HttpServlet {
 			throws ServletException, IOException {
 	
 
-		ManagementDao md = new ManagementDao();
-		
-		// Recojo info del botón para eliminar los registros de la base de datos
-		String btnEliminar = request.getParameter("btnDelete");
-		if (btnEliminar != null) {
-			try {
-				md.delete();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		// PASO EL FLUJO A LA JSP
-		RequestDispatcher rd2= request.getRequestDispatcher("index.jsp");
-		rd2.forward(request, response);
+	/*	// PASO EL FLUJO A LA JSP
+		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
+		rd.forward(request, response);*/
+
+
 
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
@@ -72,20 +61,20 @@ public class Controlador extends HttpServlet {
 		String apellidos = request.getParameter("surname");
 		String nacionalidad = request.getParameter("nationality");
 		int telefono = Integer.parseInt(request.getParameter("telephone"));
-
 		String checkInString = request.getParameter("checkIn");
 		String checkOutString = request.getParameter("checkOut");
-
+		
 		// Takes the date from the form in String and converts it java.util.date which
 		// is how the buisness object is written
+		
 		LocalDate checkIn = LocalDate.parse(checkInString);
 		LocalDate checkOut = LocalDate.parse(checkOutString);
-
 		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		String totalNightsString = request.getParameter("totalNights");
 		int totalNights = Integer.parseInt(totalNightsString);
 		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
 
+		int pricePerNight = client.getPricePerNight();
 		// Creo un cliente con los datos del formulario
 		client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
 				totalRooms);
@@ -100,9 +89,7 @@ public class Controlador extends HttpServlet {
 		lista.add(client);
 		// Dejo la lista en el request NO HACE FALTA QUE DEJE NADA EN REQUEST
 		// request.setAttribute("lista", lista);
-		
-
-
+	
 		// PASO EL FLUJO A LA JSP
 		RequestDispatcher rd = request.getRequestDispatcher("index.jsp");
 		rd.forward(request, response);

@@ -7,10 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-
-import javax.swing.JOptionPane;
 
 import com.reservationbb.pob.service.Connect;
 import com.reservationbb.pob.model.Client;
@@ -32,37 +29,12 @@ public class ClientDao {
 	public ClientDao() {
 		
 	}
-
-// GET ID
-/*	public int getId() throws SQLException {
-		 //int id = client.getId();
-		sql = "Select ID FROM client";
-		try {
-			conection = Connect.getConnection();
-			st = conection.createStatement();
-			rs =st.executeQuery(sql);
-			
-			while(rs.next()) {
-				id = rs.getInt("ID");
-			}
-
-		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}			
-	
-		
-		return id;
-		
-	}
-	*/
 	// iNSERTAR CLIENTES
-
 	public boolean insert(Client client) throws SQLException {
 		sql = "Insert into client"
 				+"(Nombre, Apellidos, Nacionalidad, Telefono, Noches, CheckIn, "
-				+ "CheckOut, Deposito, Total_Habitaciones) values "
-				 + "(?,?,?,?,?,?,?,?,?)";
+				+ "CheckOut, Deposito, Total_Habitaciones, PrecioPorNoche) values "
+				 + "(?,?,?,?,?,?,?,?,?,?)";
 		conection = Connect.getConnection();
 		ps = conection.prepareStatement(sql);
 		//ps.setInt(0, client.getId());
@@ -73,26 +45,17 @@ public class ClientDao {
 		ps.setInt(5, client.getTotalNights());
 		ps.setObject ( 6 , client.getCheckIn() );
 		ps.setObject ( 7 , client.getCheckOut() );
-
-		//ps.setDate(6, client.getCheckIn());
-		//ps.setDate(7, client.getCheckOut());
 		ps.setInt(8, client.getDeposit());
 		ps.setInt(9, client.getTotalRooms());
-		
+		ps.setInt(10, client.getPricePerNight());
 
-		/*"INSERT INTO DBUSER"
-		+ "(USER_ID, USERNAME, CREATED_BY, CREATED_DATE) VALUES"
-		+ "(?,?,?,?)";*/
-		boolean insertar = ps.executeUpdate() > 0;
-		
 	
-		  return insertar;
+		boolean insertar = ps.executeUpdate() > 0;
+		return insertar;
 	
 	}
-
-	
-	 //  LISTAR TODOS LOS CLIENTES 
-	// cREO UN MÉTODO QUE ME DEVUELVE UNA LISTA DE CLIENTES
+		//  LISTAR TODOS LOS CLIENTES 
+		// CREO UN MÉTODO QUE ME DEVUELVE UNA LISTA DE CLIENTES
 	public List<Client> clientList() throws SQLException {
 	  //Creo unalista vacía
 	  List<Client> list = new ArrayList<Client>();
@@ -111,9 +74,11 @@ public class ClientDao {
 		  LocalDate checkOut = rs.getDate(8).toLocalDate();
 		  int deposit = rs.getInt(9);
 		  int totalRooms = rs.getInt(10);
+		  int pricePerNight = rs.getInt(11);
+		  
 
 		
-	  Client client = new Client(id,name,surname,nacionalidad,tel,totalNights,checkIn,checkOut,deposit,totalRooms);
+	  Client client = new Client(id,name,surname,nacionalidad,tel,totalNights,checkIn,checkOut,deposit,totalRooms,pricePerNight);
 	  list.add(client);
 	  
 	  } 
