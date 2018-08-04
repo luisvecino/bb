@@ -7,6 +7,7 @@ import com.reservationbb.pob.service.Connect;
 
 public class ManagementDao extends ClientDao {
 	
+	//METODO DELETE TABLE
 	public boolean delete() throws SQLException {
 		Connection conn = Connect.getConnection();
 		boolean borrar = false;
@@ -23,6 +24,15 @@ public class ManagementDao extends ClientDao {
 		  
 	}
 	
+	//MÉTODO GANANCIA TOTAL POR CLIENTE
+	public int gananciaCliente(int totalDias , int precio, int numHab , int deposito) {
+		
+		int gananciaCliente = ((precio*totalDias)*numHab)-deposito;
+		
+		return gananciaCliente;
+	}
+	
+	// CREAR método para la ganancia total mensual, es decir, la suma de todas las ganancias totales durante un determinado mes
 	//CRER DB Y TABLA
     
 	/*public void createDatabase() throws SQLException {

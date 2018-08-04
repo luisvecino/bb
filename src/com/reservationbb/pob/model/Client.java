@@ -8,7 +8,7 @@ import com.reservationbb.pob.dao.ManagementDao;
 import java.time.LocalDate;
 
 public class Client {
-	
+		
 	// ATRIBUTOS
 	private int id;
 	private String name;
@@ -21,19 +21,22 @@ public class Client {
 	private int totalRooms;
 
 	private int totalNights;// Tiene que ser = a la diferencia entre el check in y el check out
-	public int pricePerNight; // Debo crear un Botón en el index.jsp para poder modificar el precio cuando
+	public int pricePerNight; // Debo crear un Botï¿½n en el index.jsp para poder modificar el precio cuando
 									// queramos
 
 	private double amountPending;
-	private double total = (pricePerNight * totalNights) - amountPending;
 	private int deposit;
 	// Date reservationStart;
 	private LocalDate checkIn;
 	// Date reservationEnd;
 	private LocalDate checkOut;
+	
+	private int gananciaXcliente;
+
+
 
 	public Client(String name, String surname, String nationality, int telephone, int totalNights, LocalDate checkIn,
-					LocalDate checkOut, int deposit, int totalRooms,int pricePerNight) {
+					LocalDate checkOut, int deposit, int totalRooms,int pricePerNight, int gananciaCliente) {
 		this.name = name;
 		this.surname = surname;
 		this.nationality = nationality;
@@ -44,12 +47,13 @@ public class Client {
 		this.deposit = deposit;
 		this.totalRooms = totalRooms;
 		this.pricePerNight = pricePerNight;
+		this.gananciaXcliente = gananciaCliente;
 	}
 	
 
 	// Constructor con el campo id
 	public Client(int id, String name, String surname, String nationality, int telephone, int totalNights,
-			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms, int pricePerNight) {
+			LocalDate checkIn, LocalDate checkOut, int deposit, int totalRooms, int pricePerNight,int gananciaxCliente) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -61,6 +65,7 @@ public class Client {
 		this.deposit = deposit;
 		this.totalRooms = totalRooms;
 		this.pricePerNight = pricePerNight;
+		this.gananciaXcliente = gananciaxCliente;
 	}
 
 	public Client() {
@@ -161,10 +166,14 @@ public class Client {
 		this.amountPending = amountPending;
 	}
 
-	public void setTotal(double total) {
-		this.total = total;
+	public int getGananciaXcliente() {
+		return gananciaXcliente;
 	}
 
+
+	public void setGananciaXcliente(int gananciaXcliente) {
+		this.gananciaXcliente = gananciaXcliente;
+	}
 
 
 }

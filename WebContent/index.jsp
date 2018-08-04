@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ page contentType="text/html; charset=UTF-8"%>
 <%@ page import="com.reservationbb.pob.dao.ClientDao"%>
 <%@ page import="com.reservationbb.pob.dao.ManagementDao"%>
@@ -48,12 +49,15 @@
 					<th>Depósito</th>
 					<th>Check in</th>
 					<th>Check Out</th>
+					<th>GananciaXclient</th>
 
 				</tr>
 			</thead>
 			<tbody>
 				<%
+					ManagementDao md = new ManagementDao();
 					ClientDao clientDao = new ClientDao();
+					Client cli = new Client();
 					List<Client> listClient = clientDao.clientList();
 					for (Client client : listClient) {
 				%>
@@ -70,13 +74,16 @@
 					<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
 					<td><%=client.getCheckIn()%></td>
 					<td><%=client.getCheckOut()%></td>
+					<td><%=client.getGananciaXcliente()%>
+					
 
-				</tr>
+				
 
 				<%
 					}
 				%>
-
+				<td></td>
+</tr>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -91,12 +98,16 @@
 					<th>Depósito</th>
 					<th>Check in</th>
 					<th>Check Out</th>
+					<th>GananciaXclient</th>
 
 				</tr>
 			</tfoot>
 		</table>
+		<p>La ganancia por el último cliente añadido es de <%=request.getAttribute("gananciaCliente")%></p>
 		<!-- Trigger the modal with a button -->
-		<a href="modal.jsp">Añadir cliente</a>
+		<button class="btn btn-info btn-lg">
+			<a href="modal.jsp">Añadir cliente</a>
+		</button>
 		<form action="Controlador2" method="get">
 			<button type="submit" class="btn btn-info btn-lg" name="btnDelete"
 				id="eliminarRegistrosTabla" onclick="return eliminarSafe();">Eliminar
@@ -124,7 +135,7 @@
 
 			}
 		</script>
-		
+
 
 		<script>
 			$(document).ready(function() {

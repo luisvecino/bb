@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.reservationbb.pob.dao.ClientDao;
+import com.reservationbb.pob.dao.ManagementDao;
 import com.reservationbb.pob.model.Client;
 
 /**
@@ -32,11 +33,6 @@ public class Controlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		/*
-		 * // PASO EL FLUJO A LA JSP RequestDispatcher rd =
-		 * request.getRequestDispatcher("index.jsp"); rd.forward(request, response);
-		 */
-
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -46,9 +42,9 @@ public class Controlador extends HttpServlet {
 		// TODO Auto-generated method stub
 		doGet(request, response);
 		ClientDao clientDao = new ClientDao();
+		ManagementDao md = new ManagementDao();
 		Client client = new Client();
 		List<Client> lista = new ArrayList<>();
-		// int id = client.getId();
 		// Recojo los datos del formulario para Client
 		String nombre = request.getParameter("name");
 		String apellidos = request.getParameter("surname");
@@ -57,16 +53,12 @@ public class Controlador extends HttpServlet {
 		String checkInString = request.getParameter("checkIn");
 		String checkOutString = request.getParameter("checkOut");
 
-		// Takes the date from the form in String and converts it java.util.date which
-		// is how the buisness object is written
 
 		LocalDate checkIn = LocalDate.parse(checkInString);
 		LocalDate checkOut = LocalDate.parse(checkOutString);
-		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		String totalNightsString = request.getParameter("totalNights");
-		int totalNights = Integer.parseInt(totalNightsString);
-		int totalRooms = Integer.parseInt(request.getParameter("totalRooms"));
 		
+
 		String priceString = request.getParameter("inputPrice");
 		int newPriceInt = Integer.parseInt(priceString);
 		
@@ -74,12 +66,19 @@ public class Controlador extends HttpServlet {
 			client.setPricePerNight(newPriceInt);
 		}
 		
-		System.out.println("Prueba ... jsuto después del SET PRICE");
+		System.out.println("Prueba ... jsuto despuï¿½s del SET PRICE");
+		
+		int deposit = Integer.parseInt(request.getParameter("deposit"));
+		int totalNightsInt = Integer.parseInt(totalNightsString);
+		int totalRoomsInt = Integer.parseInt(request.getParameter("totalRooms"));
+		
+		int gananciaCliente = md.gananciaCliente(totalNightsInt, newPriceInt, totalRoomsInt, deposit);
+		request.setAttribute("gananciaCliente", gananciaCliente);
 
 		// request.setAttribute("newPrice", newPriceInt);
 		// Creo un cliente con los datos del formulario
-		client = new Client(nombre, apellidos, nacionalidad, telefono, totalNights, checkIn, checkOut, deposit,
-				totalRooms, newPriceInt);
+		client = new Client(nombre, apellidos, nacionalidad, telefono, totalNightsInt, checkIn, checkOut, deposit,
+				totalRoomsInt, newPriceInt,gananciaCliente);
 
 		try {
 			clientDao.insert(client);
@@ -87,9 +86,9 @@ public class Controlador extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Añado el nuevo objeto cliente a la lista
+		// Aï¿½ado el nuevo objeto cliente a la lista
 		lista.add(client);
-		// Dejo la lista en el request NO HACE FALTA QUE DEJE NADA EN REQUEST
+		// Dejo la lista en el request NO HACE FALTA QUE DEJE NADA EN REQUEST por ahora
 		// request.setAttribute("lista", lista);
 
 		// PASO EL FLUJO A LA JSP

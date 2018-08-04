@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.reservationbb.pob.dao.ManagementDao;
-import com.reservationbb.pob.model.Client;
 
 @WebServlet("/Controlador2")
 public class Controlador2 extends HttpServlet {
@@ -28,7 +27,7 @@ public class Controlador2 extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
-		// Recojo info del botón para eliminar los registros de la base de datos
+		// Recojo info del botï¿½n para eliminar los registros de la base de datos
 
 		
 			try {
