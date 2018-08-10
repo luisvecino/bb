@@ -10,11 +10,13 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.reservationbb.pob.dao.ClientDao;
 import com.reservationbb.pob.dao.ManagementDao;
 
 @WebServlet("/Controlador2")
 public class Controlador2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
 	ManagementDao md2 = new ManagementDao();
 
 
@@ -28,6 +30,7 @@ public class Controlador2 extends HttpServlet {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 
 		// Recojo info del bot�n para eliminar los registros de la base de datos
+		
 
 		
 			try {

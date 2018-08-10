@@ -12,7 +12,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- CSS DatePicker -->
 <link rel="stylesheet" href="css/jquery.datetimepicker.min.css">
 <!-- JS LIBRARIES -->
@@ -74,16 +73,11 @@
 					<!-- Ganancia total = (numeroHab * precioPorNoche) * totalNoches <td></td> -->
 					<td><%=client.getCheckIn()%></td>
 					<td><%=client.getCheckOut()%></td>
-					<td><%=client.getGananciaXcliente()%>
-					
-
-				
-
-				<%
-					}
-				%>
-				<td></td>
-</tr>
+					<td><%=client.getGananciaXcliente()%> <%
+ 	}
+ %>
+					<td></td>
+				</tr>
 			</tbody>
 			<tfoot>
 				<tr>
@@ -100,10 +94,19 @@
 					<th>Check Out</th>
 					<th>GananciaXclient</th>
 
+
 				</tr>
 			</tfoot>
 		</table>
-		<p>La ganancia por el último cliente añadido es de <%=request.getAttribute("gananciaCliente")%></p>
+		<form action="Controlador3" method="GET">
+			Borrar por ID: <input name ="deleteByIdInput" placeholder ="ID">
+			<button type="submit" name="btnDeleteRow" id="btnBorrar">Borrar
+				row</button>
+		</form>
+		
+		<p>
+			La ganancia por el último cliente añadido es de
+			<%=request.getAttribute("gananciaCliente")%></p>
 		<!-- Trigger the modal with a button -->
 		<button class="btn btn-info btn-lg">
 			<a href="modal.jsp">Añadir cliente</a>

@@ -27,7 +27,7 @@ public class ManagementDao extends ClientDao {
 	//MÉTODO GANANCIA TOTAL POR CLIENTE
 	public int gananciaCliente(int totalDias , int precio, int numHab , int deposito) {
 		
-		int gananciaCliente = ((precio*totalDias)*numHab)-deposito;
+		int gananciaCliente = ((precio*totalDias)*numHab);
 		
 		return gananciaCliente;
 	}

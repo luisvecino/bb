@@ -30,9 +30,11 @@ public class Controlador extends HttpServlet {
 		super();
 	}
 
+	ClientDao clientDao = new ClientDao();
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+	
 		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
@@ -41,6 +43,9 @@ public class Controlador extends HttpServlet {
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		doGet(request, response);
+		// SET CARACTER ENCODING -> Para que los valores recogidos por el servlet
+		// mantengan el UTF-8
+		request.setCharacterEncoding("UTF-8");
 		ClientDao clientDao = new ClientDao();
 		ManagementDao md = new ManagementDao();
 		Client client = new Client();
@@ -53,32 +58,30 @@ public class Controlador extends HttpServlet {
 		String checkInString = request.getParameter("checkIn");
 		String checkOutString = request.getParameter("checkOut");
 
-
 		LocalDate checkIn = LocalDate.parse(checkInString);
 		LocalDate checkOut = LocalDate.parse(checkOutString);
 		String totalNightsString = request.getParameter("totalNights");
-		
 
 		String priceString = request.getParameter("inputPrice");
 		int newPriceInt = Integer.parseInt(priceString);
-		
-		if(( priceString != null)&&(newPriceInt > 0)) {
+
+		if ((priceString != null) && (newPriceInt > 0)) {
 			client.setPricePerNight(newPriceInt);
 		}
-		
+
 		System.out.println("Prueba ... jsuto despu�s del SET PRICE");
-		
+
 		int deposit = Integer.parseInt(request.getParameter("deposit"));
 		int totalNightsInt = Integer.parseInt(totalNightsString);
 		int totalRoomsInt = Integer.parseInt(request.getParameter("totalRooms"));
-		
+
 		int gananciaCliente = md.gananciaCliente(totalNightsInt, newPriceInt, totalRoomsInt, deposit);
 		request.setAttribute("gananciaCliente", gananciaCliente);
 
 		// request.setAttribute("newPrice", newPriceInt);
 		// Creo un cliente con los datos del formulario
 		client = new Client(nombre, apellidos, nacionalidad, telefono, totalNightsInt, checkIn, checkOut, deposit,
-				totalRoomsInt, newPriceInt,gananciaCliente);
+				totalRoomsInt, newPriceInt, gananciaCliente);
 
 		try {
 			clientDao.insert(client);

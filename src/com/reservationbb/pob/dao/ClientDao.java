@@ -34,7 +34,8 @@ public class ClientDao {
 	// iNSERTAR CLIENTES
 	public boolean insert(Client client) throws SQLException {
 		sql = "Insert into client" + "(Nombre, Apellidos, Nacionalidad, Telefono, Noches, CheckIn, "
-				+ "CheckOut, Deposito, Total_Habitaciones, PrecioPorNoche, GananciaXcliente) values " + "(?,?,?,?,?,?,?,?,?,?,?)";
+				+ "CheckOut, Deposito, Total_Habitaciones, PrecioPorNoche, GananciaXcliente) values "
+				+ "(?,?,?,?,?,?,?,?,?,?,?)";
 		conection = Connect.getConnection();
 		ps = conection.prepareStatement(sql);
 		// ps.setInt(0, client.getId());
@@ -50,17 +51,43 @@ public class ClientDao {
 		ps.setInt(10, client.getPricePerNight());
 		ps.setInt(11, client.getGananciaXcliente());
 
-
 		boolean insertar = ps.executeUpdate() > 0;
 		return insertar;
 
 	}
-	
-	
-	// CREAR MÃ‰TODO PARA ELIMINAR 1 REGISTRO DE LA BASE DE DATOS... SI ID = ...  -> BORRA
-	
-	
-	// CREAR MÃ‰TODO PARA EDITAR UN REGISTRO ... podrÃ­a volver a salir el Model y machacar lo anterior
+
+	// CREAR METODO QUE ME DE LA ID DE LA DB
+
+	/*
+	 * public int id() throws SQLException { int id = 0; sql
+	 * =" SELECT ID FROM CLIENT;"; conection = Connect.getConnection(); st =
+	 * conection.createStatement(); rs = st.executeQuery(sql);
+	 * 
+	 * return id; }
+	 */
+
+	// CREAR MÉTODO PARA ELIMINAR 1 REGISTRO DE LA BASE DE DATOS... SI ID = ... ->
+	// BORRA
+	// NO FUNCIONA... ES MÁS FÁCIL SI PONES UN ID EN UN INPUT TEXT Y BORRAS ESA ID
+	// EN CONCRETO
+
+	public void deleteRow(int id) throws SQLException {
+		
+
+		sql = "DELETE from client WHERE id = '" + id + "';";
+
+		conection = Connect.getConnection();
+
+		st = conection.createStatement();
+
+		//ps.setInt(1, id);
+		st.executeUpdate(sql);
+
+
+	}
+
+	// CREAR METODO PARA EDITAR UN REGISTRO ... podrÃ­a volver a salir el Model y
+	// machacar lo anterior
 
 	// LISTAR TODOS LOS CLIENTES
 	// CREO UN Mï¿½TODO QUE ME DEVUELVE UNA LISTA DE CLIENTES
@@ -86,7 +113,7 @@ public class ClientDao {
 			int gananciaxCliente = rs.getInt(12);
 
 			Client client = new Client(id, name, surname, nacionalidad, tel, totalNights, checkIn, checkOut, deposit,
-					totalRooms, pricePerNight,gananciaxCliente);
+					totalRooms, pricePerNight, gananciaxCliente);
 			list.add(client);
 
 		}
